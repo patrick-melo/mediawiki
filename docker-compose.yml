@@ -1,0 +1,18 @@
+version: '2'
+services:
+  mediawiki:
+    image: mediawiki
+    ports:
+      - "8080:80"
+    volumes:
+      - ./images:/efs/wiki/images
+      #- ./LocalSettings.php:/var/www/html/LocalSettings.php
+    links:
+      - mysql
+  mysql:
+      image: mysql
+      platform: linux/x86_64
+      volumes:
+        - ./mysql:/var/lib/mysql:rw
+      environment:
+        MYSQL_ROOT_PASSWORD: supersecretpassword
